@@ -39,23 +39,35 @@ class Solution:
         # TODO: Write code below to return a string with the solution to the prompt
         arr = lyric.split(" ")
         allit = {}
-        rhyme = 1
-        ends = []
+        rhyme = 0
+        ends = {}
+        # all_ends = []
+        # rep_ends = []
         final = ""
         for word in arr:
             if word[0:1] in allit:
                 allit[word[0:1]]+=1
             elif word[0:1] not in allit:
                 allit[word[0:1]] = 1
-            if (word[-3:]) in ends:
-                rhyme+=1
-            else:
-                ends.append(word[-3:])
-        if rhyme == 1:
-            rhyme-=1
+            
+            if word[-3:] in ends:
+                ends[word[-3:]]+=1
+            elif word[-3:] not in ends:
+                ends[word[-3:]] = 1
+            # if (word[-3:]) in all_ends:
+            #     rhyme+=1
+            #     rep_ends.append(word[-3:])
+            # else:
+            #     all_ends.append(word[-3:])
+            
+            # if (word[-3:]) in rep_ends:
+            #     rhyme+=1
         for key in allit:
             if allit[key]>1:
                 final += key +"="+ str(allit[key]) +", "
+        for k in ends:
+            if ends[k]>1:
+                rhyme+= ends[k]
         final += str(rhyme) + " rhyming words"
         return final
         
